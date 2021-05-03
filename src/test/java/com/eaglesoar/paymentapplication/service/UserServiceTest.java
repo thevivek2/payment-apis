@@ -6,28 +6,31 @@ import com.eaglesoar.paymentapplication.repository.UserStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class UserServiceTest {
 
     @Mock
     private UserJpaRepository repository;
+    @Mock
+    private AccountService accountService;
     private UserService userService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        userService = new UserService(repository);
+        userService = new UserService(repository, accountService);
     }
 
     @Test
     void givenValidUser_whenCreate_thenStatusIsCreated() {
         //given
         UserEntity user = user();
-        Mockito.when(repository.save(user)).thenReturn(user);
+        when(repository.save(user)).thenReturn(user);
 
         //when
         UserEntity createdUser = userService.create(user);
@@ -35,6 +38,9 @@ class UserServiceTest {
         //then
         assertThat(createdUser.getStatus()).isEqualTo(UserStatus.CREATED);
         assertThat(createdUser.getUuid()).isNotEmpty();
+
+        verify(accountService).create(user.getMobileNumber(), "NRS");
+        verify(repository).save(user);
     }
 
 
