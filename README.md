@@ -1,4 +1,4 @@
-# Rest Apis using spring boot - Part1
+# Rest Apis using spring boot About Payment
 
 Run the application\
 ``mvn clean install``\
