@@ -1,27 +1,24 @@
 package com.eaglesoar.paymentapplication.controller;
 
 import com.eaglesoar.paymentapplication.service.UserService;
+import com.eaglesoar.paymentapplication.v1.api.UserApi;
+import com.eaglesoar.paymentapplication.v1.resource.UserRequest;
+import com.eaglesoar.paymentapplication.v1.resource.UserResource;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/api/v1/users")
 @AllArgsConstructor
-public class UserController {
+public class UserController implements UserApi {
 
     private final UserService service;
     private final UserMapper mapper;
 
-    @PostMapping
-    public ResponseEntity<UserResource> create(@Valid @RequestBody UserRequest user) {
-        return ResponseEntity.ok(mapper.toResource(service.create(mapper.toEntity(user))));
+    @Override
+    public ResponseEntity<UserResource> create(UserRequest userRequest) {
+        return ResponseEntity.ok(mapper.toResource(service.create(mapper.toEntity(userRequest))));
     }
-
-
 }
