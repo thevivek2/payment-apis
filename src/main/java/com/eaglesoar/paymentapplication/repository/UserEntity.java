@@ -12,7 +12,9 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String mobileNumber;
+    @Column(unique = true)
     private String email;
     private String uuid;
     @Enumerated(value = EnumType.STRING)
