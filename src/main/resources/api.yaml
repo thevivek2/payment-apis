@@ -1,0 +1,84 @@
+openapi: 3.0.9
+info:
+  title: Payment API
+  contact:
+    email: thevivek2@gmail.com
+  version: 1.0.0
+
+paths:
+  /api/v1/users:
+    post:
+      tags:
+        - User
+      summary: Create User
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VoilationResource'
+
+components:
+  schemas:
+    UserRequest:
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 255
+          example: 'Vivek Adhikari'
+        email:
+          type: string
+          minLength: 2
+          maxLength: 255
+          format: email
+          example: 'thevivek2@gmail.com'
+        mobileNumber:
+          type: string
+          example: '2222222222'
+          minLength: 10
+          maxLength: 10
+      required:
+        - name
+        - email
+        - mobileNumber
+
+    UserResource:
+      properties:
+        uuid:
+          type: string
+          example: '123e4567-e89b-12d3-a456-426614174000'
+        status:
+          type: string
+          example: 'CREATED'
+      required:
+        - uuid
+        - status
+
+    VoilationResource:
+      properties:
+        field:
+          type: string
+          example: 'email'
+        message:
+          type: string
+          example: 'This is required'
+      required:
+        - message
+
