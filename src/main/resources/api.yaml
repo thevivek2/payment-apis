@@ -34,6 +34,74 @@ paths:
                 items:
                   $ref: '#/components/schemas/VoilationResource'
 
+  /api/v1/accounts/{accountNumber}:
+    get:
+      tags:
+        - Account
+      summary: Get Account Detail
+      operationId: get
+      parameters:
+        - name: accountNumber
+          in: path
+          description: Account Number
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/AccountResource'
+    patch:
+      tags:
+        - Account
+      summary: Partial Update of Account
+      operationId: patch
+      parameters:
+        - name: accountNumber
+          in: path
+          description: Account Number
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountUpdateRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountResource'
+
+  /api/v1/accounts/{accountNumber}/history:
+    get:
+      tags:
+        - Account
+      summary: Get Account History
+      operationId: getHistory
+      parameters:
+        - name: accountNumber
+          in: path
+          description: Account Number
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#/components/schemas/AccountResource'
+
 components:
   schemas:
     UserRequest:
@@ -80,4 +148,24 @@ components:
           example: 'This is required'
       required:
         - message
+
+    AccountResource:
+      properties:
+        accountNumber:
+          type: string
+          example: '22222'
+        status:
+          $ref: '#/components/schemas/AccountStatus'
+
+    AccountStatus:
+      type: string
+      enum:
+        - OPEN
+        - CLOSED
+
+    AccountUpdateRequest:
+      properties:
+        status:
+          $ref: '#/components/schemas/AccountStatus'
+
 

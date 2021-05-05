@@ -2,5 +2,6 @@ package com.eaglesoar.paymentapplication.repository;
 
 public enum AccountStatus {
 
-    OPEN
+    OPEN,
+    CLOSED
 }

@@ -16,11 +16,19 @@ class AccountJpaRepositoryITest {
 
     @Test
     void save() {
-        AccountEntity save = repository.save(account());
+        AccountEntity save = repository.save(account("2"));
         assertThat(save.getId()).isNotNull();
     }
 
-    private static AccountEntity account() {
-        return AccountEntity.of("2", BigDecimal.TEN, "NRS", AccountStatus.OPEN);
+    @Test
+    void findByAccountNumber() {
+        String accountNumber = "2";
+        repository.save(account(accountNumber));
+        assertThat(repository.findByAccountNumber(accountNumber)
+                .get().getStatus()).isEqualTo(AccountStatus.OPEN);
+    }
+
+    private static AccountEntity account(String accountNumber) {
+        return AccountEntity.of(accountNumber, BigDecimal.TEN, "NRS", AccountStatus.OPEN);
     }
 }
