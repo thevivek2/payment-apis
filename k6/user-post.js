@@ -6,18 +6,29 @@ export let actual_http_req_duration = new Trend('actual_http_req_duration');
 export let actual_http_reqs = new Counter('actual_http_reqs');
 export let successful_requests = new Rate('successful_requests');
 
+
 export default function () {
-    let url = __ENV.SERVICE_URL + `/app/v1/users`;
+    let url = 'http://localhost:8080/api/v1/users';
     let header = getJsonHeader();
+    let email  =  randomNumber() + faker.internet.email();
+    let mobileNumber = randomNumber();
     let payload = {
-        "email": faker.internet.email(),
-        "mobileNumber": faker.helpers.replaceSymbolWithNumber('##########'),
+        "email": email,
+        "mobileNumber": mobileNumber,
         "name": faker.name.findName()
-    };
+    }
+
     let result = http.post(url, JSON.stringify(payload), header);
     actual_http_req_duration.add(result.timings.duration);
     actual_http_reqs.add(1);
-    /20([01])/.test(result.status) ? successful_requests.add(true) : (successful_requests.add(false), logError(result));
+    /200/.test(result.status) ? successful_requests.add(true) : (successful_requests.add(false), logError(result));
+}
+
+export function randomNumber() {
+    return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    })
 }
 
 export function getJsonHeader() {
@@ -25,6 +36,7 @@ export function getJsonHeader() {
 }
 
 export function logError(res) {
-    console.warn(res);
+    console.warn(res.status, res.body);
 }
+
 

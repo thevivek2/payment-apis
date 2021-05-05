@@ -5,7 +5,7 @@ import com.eaglesoar.paymentapplication.repository.UserEntity;
 import com.eaglesoar.paymentapplication.repository.UserJpaRepository;
 import com.eaglesoar.paymentapplication.repository.UserStatus;
 import lombok.AllArgsConstructor;
-import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -24,8 +24,9 @@ public class UserService {
         accountService.create(user.getMobileNumber(), CURRENCY);
         try {
             return repository.save(user);
-        } catch (ConstraintViolationException e) {
-            throw new DuplicateDataException(String.format("Mobile number %s is already used", user.getMobileNumber()));
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateDataException(String.format("Mobile number %s or Email %s is already used",
+                    user.getMobileNumber(), user.getEmail()));
         }
     }
 
