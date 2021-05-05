@@ -1,5 +1,6 @@
 package com.eaglesoar.paymentapplication.controller;
 
+import com.eaglesoar.paymentapplication.exception.DataNotFoundException;
 import com.eaglesoar.paymentapplication.exception.DuplicateDataException;
 import com.eaglesoar.paymentapplication.v1.resource.VoilationResource;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,12 @@ public class ExceptionHandlers {
 
     @ExceptionHandler(value = DuplicateDataException.class)
     public ResponseEntity<List<VoilationResource>> handle(DuplicateDataException e) {
+        return ResponseEntity.badRequest().body(Collections.singletonList(new VoilationResource().message(e.getMessage())));
+    }
+
+
+    @ExceptionHandler(value = DataNotFoundException.class)
+    public ResponseEntity<List<VoilationResource>> handle(DataNotFoundException e) {
         return ResponseEntity.badRequest().body(Collections.singletonList(new VoilationResource().message(e.getMessage())));
     }
 
