@@ -1,3 +1,7 @@
+run:
+	java -jar target/inner-bank-payment.jar
+install:
+	mvn clean install
 load:
 	k6 run\
 		--vus 0\

@@ -1,8 +1,22 @@
-# Rest Apis using spring boot About Payment
+# Inner Bank Payment APIS
 
 Run the application\
 ``mvn clean install``\
-`` java -jar /target/payment-application-0.0.1-SNAPSHOT.jar``
+`` java -jar target/inner-bank-payment.jar``
 
-Checkout the apis using swagger-ui \
-`` http://localhost:8080/swagger-ui/index.html``
+Browse apis using swagger-ui \
+`` http://localhost:8080/swagger-ui/index.html`` \
+
+or see Makefile
+
+
+#Includes
+- Java 11
+- Spring boot
+- Spring Data Jpa
+- Hibernate envers
+- OpenApi
+- H2
+- k6
+- Plantuml
+- maven

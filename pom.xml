@@ -94,6 +94,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <finalName>inner-bank-payment</finalName>
                 </configuration>
             </plugin>
 
