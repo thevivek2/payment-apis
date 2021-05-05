@@ -4,14 +4,14 @@ import com.eaglesoar.paymentapplication.service.UserService;
 import com.eaglesoar.paymentapplication.v1.api.UserApi;
 import com.eaglesoar.paymentapplication.v1.resource.UserRequest;
 import com.eaglesoar.paymentapplication.v1.resource.UserResource;
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/users")
 @AllArgsConstructor
+@Api(tags = {"User"})
 public class UserController implements UserApi {
 
     private final UserService service;
