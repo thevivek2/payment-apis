@@ -20,8 +20,8 @@ public class PaymentJpaRepositoryITest {
         entity.setStatus(PaymentStatus.SAVED);
         entity.setAmount(BigDecimal.TEN);
         entity.setCurrency("NRS");
-        entity.setCreditorAccountNumber("2");
-        entity.setDebtorAccountNumber("3");
+        entity.setReceiverAccountNumber("2");
+        entity.setSenderAccountNumber("3");
         PaymentEntity save = repository.save(entity);
         Assertions.assertThat(save.getId()).isNotNull();
         Assertions.assertThat(save.getStatus()).isEqualTo(PaymentStatus.SAVED);
