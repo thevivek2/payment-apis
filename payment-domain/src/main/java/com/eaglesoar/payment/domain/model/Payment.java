@@ -1,9 +1,7 @@
 package com.eaglesoar.payment.domain.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -12,8 +10,8 @@ import java.math.BigDecimal;
 public class Payment {
 
     private Long id;
-    private String debtorAccountNumber;
-    private String creditorAccountNumber;
+    private String senderAccountNumber;
+    private String receiverAccountNumber;
     private BigDecimal amount;
     private String currency;
     private PaymentStatus status;

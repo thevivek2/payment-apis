@@ -13,8 +13,8 @@ public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String debtorAccountNumber;
-    private String creditorAccountNumber;
+    private String senderAccountNumber;
+    private String receiverAccountNumber;
     private BigDecimal amount;
     private String currency;
     @Enumerated(value = EnumType.STRING)

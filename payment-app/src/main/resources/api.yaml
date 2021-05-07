@@ -204,10 +204,10 @@ components:
 
     PaymentRequest:
       properties:
-        debtorAccountNumber:
+        senderAccountNumber:
           type: string
           example: '22222222'
-        creditorAccountNumber:
+        receiverAccountNumber:
           type: string
           example: '3333333'
         amount:

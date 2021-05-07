@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "payment.credit.max.transfer.amount",
+      "type": "java.lang.String",
+      "description": "Description for payment.credit.max.transfer.amount."
+  }
+] }
