@@ -6,17 +6,17 @@ info:
   version: 1.0.0
 
 paths:
-  /api/v1/users:
+  /api/v1/mobile/accounts:
     post:
       tags:
-        - User
-      summary: Create User
-      operationId: create
+        - Account
+      summary: Create Account
+      operationId: createAccount
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserRequest'
+              $ref: '#/components/schemas/AccountRequest'
         required: true
       responses:
         '200':
@@ -24,7 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResource'
+                $ref: '#/components/schemas/AccountResource'
         '400':
           description: Bad Request
           content:
@@ -39,7 +39,7 @@ paths:
       tags:
         - Account
       summary: Get Account Detail
-      operationId: get
+      operationId: getAccount
       parameters:
         - name: accountNumber
           in: path
@@ -66,7 +66,7 @@ paths:
       tags:
         - Account
       summary: Partial Update of Account
-      operationId: patch
+      operationId: patchAccount
       parameters:
         - name: accountNumber
           in: path
@@ -100,7 +100,7 @@ paths:
       tags:
         - Account
       summary: Get Account History
-      operationId: getHistory
+      operationId: getAccountHistory
       parameters:
         - name: accountNumber
           in: path
@@ -156,39 +156,21 @@ paths:
 
 components:
   schemas:
-    UserRequest:
+    AccountRequest:
       properties:
-        name:
-          type: string
-          minLength: 2
-          maxLength: 255
-          example: 'Vivek Adhikari'
-        email:
-          type: string
-          minLength: 2
-          maxLength: 255
-          format: email
-          example: 'thevivek2@gmail.com'
         mobileNumber:
           type: string
           example: '2222222222'
           minLength: 10
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+          example: 'NRS'
+          default: 'NRS'
       required:
-        - name
-        - email
         - mobileNumber
 
-    UserResource:
-      properties:
-        uuid:
-          type: string
-          example: '123e4567-e89b-12d3-a456-426614174000'
-        status:
-          type: string
-          example: 'CREATED'
-      required:
-        - uuid
-        - status
 
     VoilationResource:
       properties:

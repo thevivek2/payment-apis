@@ -1,5 +1,5 @@
 run:
-	java -jar target/inner-bank-payment.jar
+	java -jar payment-app/target/inner-bank-payment.jar
 install:
 	mvn clean install
 load:
