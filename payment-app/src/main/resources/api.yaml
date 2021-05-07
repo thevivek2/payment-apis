@@ -54,6 +54,14 @@ paths:
             'application/json':
               schema:
                 $ref: '#/components/schemas/AccountResource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VoilationResource'
     patch:
       tags:
         - Account
@@ -78,6 +86,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountResource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VoilationResource'
 
   /api/v1/accounts/{accountNumber}/history:
     get:
@@ -101,6 +117,42 @@ paths:
                 type: array
                 items:
                  $ref: '#/components/schemas/AccountResource'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VoilationResource'
+
+  /api/v1/payments:
+    post:
+      tags:
+        - Payment
+      summary: Make Payment Transfer
+      operationId: createPayment
+      requestBody:
+       content:
+         application/json:
+           schema:
+             $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VoilationResource'
+
 
 components:
   schemas:
@@ -167,5 +219,24 @@ components:
       properties:
         status:
           $ref: '#/components/schemas/AccountStatus'
+
+    PaymentRequest:
+      properties:
+        debtorAccountNumber:
+          type: string
+          example: '22222222'
+        creditorAccountNumber:
+          type: string
+          example: '3333333'
+        amount:
+          type: number
+          format: bigdecimal
+          example: '2000'
+
+    PaymentResponse:
+      properties:
+        status:
+          type: string
+          example: 'SAVED'
 
 
