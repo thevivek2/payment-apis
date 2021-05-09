@@ -4,7 +4,7 @@
 
 Run the application\
 ``mvn clean install``\
-`` java -jar target/inner-bank-payment.jar``
+`` java -jar payment-app/target/inner-bank-payment.jar``
 
 Browse apis using swagger-ui \
 `` http://localhost:8080/swagger-ui/index.html`` \
