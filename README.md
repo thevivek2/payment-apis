@@ -21,4 +21,5 @@ or see Makefile
 - k6
 - Plantuml
 - maven
+- drools
 

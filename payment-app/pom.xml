@@ -63,6 +63,13 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.kie/kie-ci -->
+        <dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-ci</artifactId>
+            <version>7.53.1.Final</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
