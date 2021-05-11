@@ -1,0 +1,23 @@
+package rules;
+
+import com.eaglesoar.payment.domain.model.Payment;
+import java.util.List;
+import com.eaglesoar.payment.domain.model.Charge
+import java.math.BigDecimal;
+
+global List<Charge> charges;
+dialect "mvel"
+
+rule "Network Charges for all payment transfer"
+    when
+    payment: Payment( 1 == 1 )
+    then
+     charges.add(new Charge(payment.getSenderAccountNumber(), "000000", BigDecimal.TEN, "NETWORK_FEE"));
+end
+
+rule "System Charges for all payment transfer"
+    when
+    payment: Payment( amount > 100 )
+    then
+     charges.add(new Charge(payment.getSenderAccountNumber(), "000000", BigDecimal.ONE, "SYSTEM_FEE"));
+end

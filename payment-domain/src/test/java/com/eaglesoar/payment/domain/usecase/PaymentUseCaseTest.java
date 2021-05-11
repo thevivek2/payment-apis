@@ -7,6 +7,7 @@ import com.eaglesoar.payment.domain.model.Payment;
 import com.eaglesoar.payment.domain.model.PaymentStatus;
 import com.eaglesoar.payment.domain.repository.AccountRepository;
 import com.eaglesoar.payment.domain.repository.PaymentRepository;
+import com.eaglesoar.payment.domain.service.ChargeCalculator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,13 +24,15 @@ class PaymentUseCaseTest {
     private PaymentRepository repository;
     @Mock
     private AccountRepository accountRepository;
+    @Mock
+    private ChargeCalculator chargeCalculator;
     private final BigDecimal maxTransferLimit = BigDecimal.TEN;
     private PaymentUseCase useCase;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        useCase = new PaymentUseCase(repository, accountRepository, maxTransferLimit);
+        useCase = new PaymentUseCase(repository, accountRepository, maxTransferLimit, chargeCalculator);
     }
 
     @Test
@@ -52,6 +55,7 @@ class PaymentUseCaseTest {
         verify(repository).save(payment);
         verify(accountRepository, times(2)).isExists(anyString());
         verify(accountRepository, times(2)).isExists(anyString(), eq(AccountStatus.OPEN));
+        verify(chargeCalculator).calculate(payment);
     }
 
     @Test
@@ -72,6 +76,7 @@ class PaymentUseCaseTest {
 
         verify(accountRepository, times(2)).isExists(anyString());
         verify(accountRepository, times(2)).isExists(anyString(), eq(AccountStatus.OPEN));
+        verifyNoInteractions(chargeCalculator);
     }
 
 
@@ -89,5 +94,6 @@ class PaymentUseCaseTest {
         Assertions.assertThrows(AccountNotFoundException.class, () -> useCase.apply(payment));
 
         verify(accountRepository).isExists(anyString());
+        verifyNoInteractions(chargeCalculator);
     }
 }
